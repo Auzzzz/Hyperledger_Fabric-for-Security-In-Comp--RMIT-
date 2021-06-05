@@ -13,14 +13,13 @@ ssh root@ssh root@xx
 The following steps are required to prepare the Droplet.
 ```bash
 # update the OS
-apt update && apt upgrade
+apt update && apt upgrade -y
 
 # install some useful helpers
-apt install tree jq gcc make
+apt install tree jq gcc make -y
 
-# it's always good the use the right time
-# so setup the correct timezone
-timedatectl set-timezone Europe/Vienna
+# So we can tell the correct time and date as the server is in the cloud
+timedatectl set-timezone Australia/Melbourne
 
 # check the time
 date
@@ -36,7 +35,7 @@ sudo apt install \
   ca-certificates \
   curl \
   gnupg-agent \
-  software-properties-common
+  software-properties-common -y
 
 # add Docker’s official GPG key
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -49,8 +48,8 @@ sudo add-apt-repository \
   stable"
 
 # install docker engine
-apt update
-apt install docker-ce docker-ce-cli containerd.io
+apt update -y
+apt install docker-ce docker-ce-cli containerd.io -y
 
 # check the docker version
 docker --version
@@ -99,7 +98,7 @@ printenv | grep PATH
 
 ```bash
 # add PPA from NodeSource
-curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
+curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh
 
 # call the install script
 . nodesource_setup.sh
@@ -110,7 +109,8 @@ apt-get install -y nodejs
 # check the version
 node -v
 
-sudo apt-get install build-essential
+sudo apt-get install build-essential -y
+sudo apt install npm
 sudo npm install -g node-gyp
 ```
 
