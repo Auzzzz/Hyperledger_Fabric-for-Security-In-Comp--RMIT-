@@ -12,14 +12,14 @@ ssh root@ssh root@xx
 The following steps are required to prepare the Droplet.
 ```bash
 # update the OS
-apt update && apt upgrade
+apt update && apt upgrade -y
 
 # install some useful helpers
-apt install tree jq gcc make
+apt install tree jq gcc make -y
 
 # it's always good the use the right time
 # so setup the correct timezone
-timedatectl set-timezone Europe/Vienna
+timedatectl set-timezone Australia/Melbourne
 
 # check the time
 date
