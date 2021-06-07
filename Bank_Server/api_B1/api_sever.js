@@ -39,14 +39,13 @@ app.get('/api/query/all', async function (req, res) {
         const network = await gateway.getNetwork('mychannel');
 
         // Get the contract from the network.
-        const contract = network.getContract('authority');
+        const contract = network.getContract('bank');
 
         // Evaluate the specified transaction.
         // change from string into JSON
-        const result = await contract.evaluateTransaction('queryAllPropertys');
+        const result = await contract.evaluateTransaction('queryAllApps');
         const jsonBytesToString = String.fromCharCode(...result)
         const jsonFromString = JSON.parse(jsonBytesToString)
-
         console.log(jsonFromString)
 
         //console.log(`Transaction has been evaluated, result is: ${result}`);
@@ -63,7 +62,7 @@ app.get('/api/query/all', async function (req, res) {
 });
 
 // DONE
-app.get('/api/query/:prop_index', async function (req, res) {
+app.get('/api/query/:app_index', async function (req, res) {
     try {
 
         let ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
@@ -88,13 +87,13 @@ app.get('/api/query/:prop_index', async function (req, res) {
         const network = await gateway.getNetwork('mychannel');
 
         // Get the contract from the network.
-        const contract = network.getContract('authority');
+        const contract = network.getContract('bank');
 
         // Evaluate the specified transaction.
         // queryCar transaction - requires 1 argument, ex: ('queryCar', 'CAR4')
         // queryAllCars transaction - requires no arguments, ex: ('queryAllCars')
         console.log(req.params.prop_index)
-        const result = await contract.evaluateTransaction('queryProperty', req.params.prop_index);
+        const result = await contract.evaluateTransaction('queryApp', req.params.prop_index);
         const jsonBytesToString = String.fromCharCode(...result)
         const jsonFromString = JSON.parse(jsonBytesToString)
 
@@ -137,12 +136,12 @@ app.post('/api/add', async function (req, res) {
         const network = await gateway.getNetwork('mychannel');
 
         // Get the contract from the network.
-        const contract = network.getContract('authority');
+        const contract = network.getContract('bank');
 
         // Submit the specified transaction.
         // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
         // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR10', 'Dave')
-        await contract.submitTransaction('createProperty', req.body.propertyNumber, req.body.prop_id, req.body.exact_address, req.body.town, req.body.postcode, req.body.appraised_value, req.body.wanted_value, req.body.current_owner_id, req.body.application_ipfs, req.body.status, req.body.auth_s_id, req.body.bank_loan_id);
+        await contract.submitTransaction('createApplication', req.body.applicationID, req.body.userID, req.body.requestedAmount, req.body.bank_w_id, req.body.status, req.body.approviedValue, req.body.notes);
         console.log('Transaction has been submitted');
         res.send('Transaction has been submitted');
 
@@ -155,7 +154,7 @@ app.post('/api/add', async function (req, res) {
     }
 })
 //DONE
-app.put('/api/changeowner', async function (req, res) {
+app.put('/api/change', async function (req, res) {
     try {
 
         let ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
@@ -180,12 +179,12 @@ app.put('/api/changeowner', async function (req, res) {
         const network = await gateway.getNetwork('mychannel');
 
         // Get the contract from the network.
-        const contract = network.getContract('authority');
+        const contract = network.getContract('bank');
 
         // Submit the specified transaction.
         // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
         // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR10', 'Dave')
-        await contract.submitTransaction('changePropertyOwner', req.body.prop_index, req.body.owner);
+        await contract.submitTransaction('changeApplicationStatus', req.body.app_index, req.body.status, req.body.bank_w_id, req.body.approviedValue, req.body.notes);
         console.log('Transaction has been submitted');
         res.send('Transaction has been submitted');
 
@@ -198,4 +197,4 @@ app.put('/api/changeowner', async function (req, res) {
     }
 })
 
-app.listen(8080);
+app.listen(8070);

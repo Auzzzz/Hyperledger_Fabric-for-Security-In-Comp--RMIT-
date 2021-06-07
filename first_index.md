@@ -1,13 +1,6 @@
-# Setup Hyperledger Fabric for Authority
+# Setup Hyperledger Fabric for Authority & Bank networks
 this instructions are from the Hyperledger walkthrough of Hyperledger 2.2 (https://github.com/samlinux/htsc/tree/master/meetup-061020)
 These steps describes a HLF 2.2.x installation on a DigitalOcean Droplet.
-
-## Droplet 
-Digital Ocean Droplet, 1 CPU, 2 GB, 50 GB SSD  
-OS, Ubuntu 20.04 (LTS) x64
-
-## Access via ssh
-ssh root@ssh root@xx
 
 ## Perparations
 The following steps are required to prepare the Droplet.
@@ -110,7 +103,6 @@ apt-get install -y nodejs
 node -v
 
 sudo apt-get install build-essential -y
-sudo apt install npm
 sudo npm install -g node-gyp
 ```
 
@@ -147,6 +139,41 @@ Add the authority folder into /root/fabric/fabric-samples
 ```bash
 
 cd fabric/fabric-samples/authority
+
+chmod +rwx startFabric.sh 
+chmod +rwx networkDown.sh 
+
+./startFabric.sh
+
+```
+
+From here the application will build itself, load up all docker instences and go through a test run of the program
+
+Install node, then run enrollAdmin & registerUser
+
+```bash
+
+cd javascript/
+npm install
+node enrollAdmin.js
+node registerUser.js
+
+```
+
+To test eveything works 
+
+```bash
+node query.js
+```
+
+## Start the Bank chaincode
+for the simplicty of using the folder structure all ready provided by hyperledger fabric samples, place the 'bank' folder located in the chaincode folder into /root/fabric/fabric-samples/chaincode
+
+Add the authority folder into /root/fabric/fabric-samples
+
+```bash
+
+cd fabric/fabric-samples/bank
 
 chmod +rwx startFabric.sh 
 chmod +rwx networkDown.sh 

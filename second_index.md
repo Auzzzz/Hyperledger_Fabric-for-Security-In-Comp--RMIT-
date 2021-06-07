@@ -1,7 +1,5 @@
-# Bank swam installation
+# Bank swam installation ( Does not Work)
 ### Install Hyperledger Fabric following first_index up untill 'Start the Authority chaincode' 
-
-
 
 On Host 1 we need to use docker swarm to create an overlay to connect with the other servers
 
@@ -23,8 +21,6 @@ Go to each other host and connect the host to the swarm by using the output of t
 ```bash
 
 'swam join-token manager output' --advertise-addr 'ip of machine'
-
-docker swarm join --token SWMTKN-1-37bfzt1ktk108elyz3wordos82bs4mc37816nbeicwgl73swpe-6zcgxavev9u3mvkh04lfz73uk 157.245.130.40:2377  --advertise-addr 143.198.174.145
 
 ```
 
@@ -128,10 +124,10 @@ these scripts will output a Chaincode code package identifier this package shoul
 ```bash
 
 # org 1
-docker exec cli peer lifecycle chaincode approveformyorg --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --channelID mychannel --name bank --version 1 --sequence 1 --waitForEvent --package-id basic_1.0:a3d8f19b17cb40d511c38ff6fd5d3d58a7c1b2e27476134e6e9a8e84c43670bb
+docker exec cli peer lifecycle chaincode approveformyorg --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --channelID mychannel --name bank --version 1 --sequence 1 --waitForEvent --package-id basic_1.0:a0414654a70075262c5b8b37e66523f6b596a91d48412c1e23dc55827ee39f3a
 
 # org 2
-docker exec -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp -e CORE_PEER_ADDRESS=peer0.org2.example.com:9051 -e CORE_PEER_LOCALMSPID="Org2MSP" -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt cli peer lifecycle chaincode approveformyorg --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --channelID mychannel --name bank --version 1 --sequence 1 --waitForEvent --package-id basic_1.0:a3d8f19b17cb40d511c38ff6fd5d3d58a7c1b2e27476134e6e9a8e84c43670bb
+docker exec -e CORE_PEER_MSPCONFIGPATH=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp -e CORE_PEER_ADDRESS=peer0.org2.example.com:9051 -e CORE_PEER_LOCALMSPID="Org2MSP" -e CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt cli peer lifecycle chaincode approveformyorg --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --channelID mychannel --name bank --version 1 --sequence 1 --waitForEvent --package-id basic_1.0:a0414654a70075262c5b8b37e66523f6b596a91d48412c1e23dc55827ee39f3a
 
 ```
 
@@ -144,7 +140,7 @@ docker exec cli peer lifecycle chaincode checkcommitreadiness --channelID mychan
 
 Commit the chaincode
 ```bash
-docker exec cli peer lifecycle chaincode commit -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt --channelID mychannel --name bank --version 1 --sequence 2
+docker exec cli peer lifecycle chaincode commit -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem --peerAddresses peer0.org1.example.com:7051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt --peerAddresses peer0.org2.example.com:9051 --tlsRootCertFiles /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt --channelID mychannel --name bank --version 1 --sequence 1
 ```
 
 
