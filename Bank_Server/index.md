@@ -1,4 +1,4 @@
-# Setup Hyperledger Fabric for bank & Bank networks
+# Setup Hyperledger Fabric for bank
 this instructions are from the Hyperledger walkthrough of Hyperledger 2.2 (https://github.com/samlinux/htsc/tree/master/meetup-061020)
 These steps describes a HLF 2.2.x installation on a DigitalOcean Droplet.
 

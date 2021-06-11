@@ -57,7 +57,7 @@ app.get('/api/query/all', async function (req, res) {
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);
         res.status(500).json({error: error});
-        process.exit(1);
+        
     }
 });
 
@@ -107,7 +107,7 @@ app.get('/api/query/:app_index', async function (req, res) {
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);
         res.status(500).json({error: error});
-        process.exit(1);
+        
     }
 });
 
@@ -151,7 +151,7 @@ app.post('/api/add', async function (req, res) {
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        process.exit(1);
+        
     }
 })
 //DONE
@@ -194,7 +194,7 @@ app.put('/api/change', async function (req, res) {
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        process.exit(1);
+        
     }
 })
 

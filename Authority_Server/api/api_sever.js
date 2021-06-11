@@ -58,7 +58,6 @@ app.get('/api/query/all', async function (req, res) {
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);
         res.status(500).json({error: error});
-        process.exit(1);
     }
 });
 
@@ -107,7 +106,6 @@ app.get('/api/query/:prop_index', async function (req, res) {
     } catch (error) {
         console.error(`Failed to evaluate transaction: ${error}`);
         res.status(500).json({error: error});
-        process.exit(1);
     }
 });
 
@@ -151,7 +149,6 @@ app.post('/api/add', async function (req, res) {
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        process.exit(1);
     }
 })
 //DONE
@@ -185,7 +182,7 @@ app.put('/api/changeowner', async function (req, res) {
         // Submit the specified transaction.
         // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
         // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR10', 'Dave')
-        await contract.submitTransaction('changePropertyOwner', req.body.prop_index, req.body.newOwner. req.body.soldPrice);
+        await contract.submitTransaction('changePropertyOwner', req.body.prop_index, req.body.newOwner, req.body.soldPrice, req.body.current_owner_id);
         console.log('Transaction has been submitted');
         res.status(200).json({msg: "Transaction has been submitted"});
 
@@ -194,7 +191,6 @@ app.put('/api/changeowner', async function (req, res) {
 
     } catch (error) {
         console.error(`Failed to submit transaction: ${error}`);
-        process.exit(1);
     }
 })
 
