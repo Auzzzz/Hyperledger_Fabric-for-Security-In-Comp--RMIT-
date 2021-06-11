@@ -1,4 +1,4 @@
-# Setup Hyperledger Fabric for Authority & Bank networks
+# Setup Hyperledger Fabric for bank & Bank networks
 this instructions are from the Hyperledger walkthrough of Hyperledger 2.2 (https://github.com/samlinux/htsc/tree/master/meetup-061020)
 These steps describes a HLF 2.2.x installation on a DigitalOcean Droplet.
 
@@ -131,14 +131,14 @@ peer version
 
 ```
 
-## Start the Authority chaincode
-for the simplicty of using the folder structure allready provided by hyperledger fabric samples, place the 'authority' folder located in the chaincode folder into /root/fabric/fabric-samples/chaincode
+## Start the bank chaincode
+for the simplicty of using the folder structure allready provided by hyperledger fabric samples, place the 'bank' folder located in the chaincode folder into /root/fabric/fabric-samples/chaincode
 
-Add the authority folder into /root/fabric/fabric-samples
+Add the bank folder into /root/fabric/fabric-samples
 
 ```bash
 
-cd fabric/fabric-samples/authority
+cd fabric-samples/bank
 
 chmod +rwx startFabric.sh 
 chmod +rwx networkDown.sh 
@@ -169,7 +169,7 @@ node query.js
 ## Start the Bank chaincode
 for the simplicty of using the folder structure all ready provided by hyperledger fabric samples, place the 'bank' folder located in the chaincode folder into /root/fabric/fabric-samples/chaincode
 
-Add the authority folder into /root/fabric/fabric-samples
+Add the bank folder into /root/fabric/fabric-samples
 
 ```bash
 
@@ -203,7 +203,7 @@ node query.js
 
 ## API Setup
 
-To setup the API to connect to the Authority Ledger and allow access from outside of the network
+To setup the API to connect to the bank Ledger and allow access from outside of the network
 
 ```bash
 cd ~
@@ -211,9 +211,9 @@ mkdir api && cd api/
 
 ```
 
-We will need to copy some files from the Authority Ledger we just made
-    - Our application identity (authority/javascript/wallet/appUser.js)
-    - the node package (authority/javascript/package.json)
+We will need to copy some files from the bank Ledger we just made
+    - Our application identity (bank/javascript/wallet/appUser.js)
+    - the node package (bank/javascript/package.json)
     - our connection file (test-network/organizations/peerOrganizations/org1.example.com/connection-org1.json)
 
 the api folder should look like
@@ -235,6 +235,7 @@ IP peer0.org1.example.com
 IP peer0.org2.example.com
 
 ```
+
 
 
 Install node requiremnets then create run the server

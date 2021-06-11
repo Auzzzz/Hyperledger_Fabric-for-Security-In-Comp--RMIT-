@@ -13,22 +13,7 @@ class Bank extends Contract {
     async initLedger(ctx) {
         console.info('============= START : Initialize Ledger ===========');
         const applications = [
-            {
-                userID: "1234",
-                requestedAmount: "100000",
-                bank_w_id: "",
-                status: "Open",
-                approviedValue: "",
-                notes: "",
-            },
-            {
-                userID: "9876",
-                requestedAmount: "9990000",
-                bank_w_id: "lnf874",
-                status: "Approvied",
-                approviedValue: "9990000",
-                notes: "He's a good guy, i'm sure he will repay",
-            },          
+     
         ];
 
         for (let i = 0; i < applications.length; i++) {
@@ -58,13 +43,15 @@ class Bank extends Contract {
     }
 
 
-    async createApplication(ctx, applicationID, userID, requestedAmount, bank_w_id, status, approviedValue, notes) {
+    async createApplication(ctx, applicationID, userID, requestedAmount, prop_current_id, prop_buy_id, bank_w_id, status, approviedValue, notes) {
         console.info('============= START : Create App ===========');
 
         const application = {
             docType: 'application',
             userID,
             requestedAmount,
+            prop_current_id,
+            prop_buy_id,
             bank_w_id,
             status,
             approviedValue,

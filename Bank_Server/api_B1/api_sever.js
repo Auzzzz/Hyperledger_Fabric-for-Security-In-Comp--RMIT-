@@ -92,10 +92,11 @@ app.get('/api/query/:app_index', async function (req, res) {
         // Evaluate the specified transaction.
         // queryCar transaction - requires 1 argument, ex: ('queryCar', 'CAR4')
         // queryAllCars transaction - requires no arguments, ex: ('queryAllCars')
-        console.log(req.params.prop_index)
-        const result = await contract.evaluateTransaction('queryApp', req.params.prop_index);
+        console.log(req.params.app_index)
+        const result = await contract.evaluateTransaction('queryApp', req.params.app_index);
         const jsonBytesToString = String.fromCharCode(...result)
         const jsonFromString = JSON.parse(jsonBytesToString)
+
 
         console.log(`Transaction has been evaluated, result is: ${jsonFromString}`);
         res.status(200).json({content: jsonFromString});
@@ -141,7 +142,7 @@ app.post('/api/add', async function (req, res) {
         // Submit the specified transaction.
         // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
         // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR10', 'Dave')
-        await contract.submitTransaction('createApplication', req.body.applicationID, req.body.userID, req.body.requestedAmount, req.body.bank_w_id, req.body.status, req.body.approviedValue, req.body.notes);
+        await contract.submitTransaction('createApplication', req.body.applicationID, req.body.userID, req.body.requestedAmount, req.body.prop_current_id, req.body.prop_buy_id, req.body.bank_w_id, req.body.status, req.body.approviedValue, req.body.notes);
         console.log('Transaction has been submitted');
         res.send('Transaction has been submitted');
 
