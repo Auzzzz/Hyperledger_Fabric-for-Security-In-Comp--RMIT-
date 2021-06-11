@@ -50,7 +50,7 @@ app.get('/api/query/all', async function (req, res) {
         console.log(jsonFromString)
 
         //console.log(`Transaction has been evaluated, result is: ${result}`);
-        res.status(200).json({content: jsonFromString});
+        res.status(200).json({msg: "Transaction has been evaluated", content: jsonFromString});
 
         // Disconnect from the gateway.
         await gateway.disconnect();
@@ -99,7 +99,7 @@ app.get('/api/query/:prop_index', async function (req, res) {
         const jsonFromString = JSON.parse(jsonBytesToString)
 
         console.log(`Transaction has been evaluated, result is: ${jsonFromString}`);
-        res.status(200).json({content: jsonFromString});
+        res.status(200).json({msg: "Transaction has been evaluated", content: jsonFromString});
 
         // Disconnect from the gateway.
         await gateway.disconnect();
@@ -142,9 +142,9 @@ app.post('/api/add', async function (req, res) {
         // Submit the specified transaction.
         // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
         // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR10', 'Dave')
-        await contract.submitTransaction('createProperty', req.body.propertyNumber, req.body.prop_id, req.body.exact_address, req.body.town, req.body.postcode, req.body.appraised_value, req.body.wanted_value, req.body.current_owner_id, req.body.application_ipfs, req.body.status, req.body.auth_s_id, req.body.bank_loan_id);
+        await contract.submitTransaction('createProperty', req.body.propertyNumber, req.body.prop_id, req.body.exact_address, req.body.town, req.body.postcode, req.body.appraised_value, req.body.wanted_value, req.body.current_owner_id, req.body.application_ipfs, req.body.status, req.body.old_owner_id, req.body.sold_price , req.body.auth_s_id, req.body.bank_loan_id);
         console.log('Transaction has been submitted');
-        res.send('Transaction has been submitted');
+        res.status(200).json({msg: "Transaction has been submitted", propertyNumber: req.body.propertyNumber});
 
         // Disconnect from the gateway.
         await gateway.disconnect();
@@ -185,9 +185,9 @@ app.put('/api/changeowner', async function (req, res) {
         // Submit the specified transaction.
         // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
         // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR10', 'Dave')
-        await contract.submitTransaction('changePropertyOwner', req.body.prop_index, req.body.owner);
+        await contract.submitTransaction('changePropertyOwner', req.body.prop_index, req.body.newOwner. req.body.soldPrice);
         console.log('Transaction has been submitted');
-        res.send('Transaction has been submitted');
+        res.status(200).json({msg: "Transaction has been submitted"});
 
         // Disconnect from the gateway.
         await gateway.disconnect();
@@ -198,4 +198,4 @@ app.put('/api/changeowner', async function (req, res) {
     }
 })
 
-app.listen(8080);
+app.listen(8020);
